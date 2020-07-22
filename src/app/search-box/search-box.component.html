@@ -1,1 +1,6 @@
-<p>search-box works!</p>
+<div class="search-box" [class.expanded]="expanded">
+  <span (click)="expand()" class="search-box__glass">
+    <fa-icon [icon]='faSearch'></fa-icon>
+  </span>
+  <input type="text" class="search-box__input" #input (focusout)="hideInput()" placeholder="Search...">
+</div>

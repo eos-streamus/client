@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-search-box',
@@ -6,10 +7,22 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./search-box.component.scss']
 })
 export class SearchBoxComponent implements OnInit {
+  faSearch = faSearch;
+  expanded: boolean;
+
+  @ViewChild("input") input: ElementRef;
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  hideInput() {
+    this.expanded = false;
+  }
+
+  expand() {
+    this.expanded = true;
+    (this.input.nativeElement as HTMLInputElement).focus();
+  }
 }

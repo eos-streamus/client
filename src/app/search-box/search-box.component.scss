@@ -1,0 +1,29 @@
+.search-box__glass {
+  color: white;
+  cursor: pointer;
+  margin-right: .3rem;
+  margin-left: .3rem;
+}
+
+.search-box__input {
+  padding: 0;
+  margin: 0;
+  border: none;
+  background-color: transparent;
+  color: white;
+  caret-color: white;
+  width: 0rem;
+  transition: .5s;
+}
+
+.search-box.expanded {
+  border: 1px solid gray;
+
+  .search-box__input {
+    width: 10rem;
+    transition: .5s;
+    padding: .1rem;
+    outline: none;
+  }
+
+}
