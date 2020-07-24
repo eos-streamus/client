@@ -6,12 +6,14 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SearchBoxComponent } from './search-box/search-box.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { AuthComponent } from './auth/auth.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    SearchBoxComponent
+    SearchBoxComponent,
+    AuthComponent
   ],
   imports: [
     BrowserModule,
