@@ -7,6 +7,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { SearchBoxComponent } from './search-box/search-box.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AuthComponent } from './auth/auth.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { AuthComponent } from './auth/auth.component';
     BrowserModule,
     AppRoutingModule,
     FontAwesomeModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
