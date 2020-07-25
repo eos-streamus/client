@@ -3,50 +3,57 @@ import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Constants } from './constants';
 import { catchError, map } from 'rxjs/operators';
+import { LoginResponse } from './responses/LoginResponse';
+import { RegisterResponse } from './responses/RegisterResponse';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(private httpCient: HttpClient) { }
+  constructor(private httpClient: HttpClient) { }
+
+  performRegister(data: {
+    username: string,
+    email: string,
+    firstName: string,
+    lastName: string,
+    dateOfBirth: string,
+    password: string
+  }): Observable<RegisterResponse> {
+    return this.httpClient.post<RegisterResponse>(Constants.getUrl('users'), data)
+      .pipe(catchError(this.handleRegisterError))
+      .pipe(map(this.handleRegisterResponse));
+  }
 
   performLogin(email: string, password: string): Observable<LoginResponse> {
-    return this.httpCient.post<LoginResponse>(Constants.getUrl('login'), {
+    return this.httpClient.post<LoginResponse>(Constants.getUrl('login'), {
       email: email,
       password: password
     })
-      .pipe(catchError(this.handleError))
+      .pipe(catchError(this.handleLoginError))
       .pipe(map(this.handleResponse));
   }
 
-  private handleError(httpErrorResponse): Observable<LoginResponse> {
+  private handleRegisterError(response): Observable<RegisterResponse> {
+    return of(new RegisterResponse(false, response.error));
+  }
+
+  private handleLoginError(httpErrorResponse): Observable<LoginResponse> {
     return of(new LoginResponse(false, httpErrorResponse.error.reason));
   }
 
-  private handleResponse(response: any): LoginResponse {
-    if (response instanceof LoginResponse) { // Received from handleError
+  private handleRegisterResponse(response): RegisterResponse {
+    if (response instanceof RegisterResponse) {
       return response;
-    } else {
-      return new LoginResponse(true, null);
     }
-  }
-}
-
-export class LoginResponse {
-  private _success: boolean;
-  private _message: string;
-
-  get message(): string {
-    return this._message;
+    return new RegisterResponse(true, null);
   }
 
-  get success(): boolean {
-    return this._success;
-  }
-
-  constructor(success: boolean, message: string) {
-    this._success = success;
-    this._message = message;
+  private handleResponse(response: any): LoginResponse {
+    if (response instanceof LoginResponse) { // Received from handleLoginError
+      return response;
+    }
+    return new LoginResponse(true, null);
   }
 }
