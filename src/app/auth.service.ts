@@ -3,8 +3,8 @@ import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Constants } from './constants';
 import { catchError, map } from 'rxjs/operators';
-import { LoginResponse } from './responses/LoginResponse';
 import { RegisterResponse } from './responses/RegisterResponse';
+import { LoginResponse } from './responses/LoginResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +22,7 @@ export class AuthService {
     password: string
   }): Observable<RegisterResponse> {
     return this.httpClient.post<RegisterResponse>(Constants.getUrl('users'), data)
-      .pipe(catchError(this.handleRegisterError))
+      .pipe(catchError(response => of(new RegisterResponse(false, response.error))))
       .pipe(map(this.handleRegisterResponse));
   }
 
@@ -31,20 +31,12 @@ export class AuthService {
       email: email,
       password: password
     })
-      .pipe(catchError(this.handleLoginError))
+      .pipe(catchError(response => of(new LoginResponse(false, response.error.reason))))
       .pipe(map(this.handleResponse));
   }
 
-  private handleRegisterError(response): Observable<RegisterResponse> {
-    return of(new RegisterResponse(false, response.error));
-  }
-
-  private handleLoginError(httpErrorResponse): Observable<LoginResponse> {
-    return of(new LoginResponse(false, httpErrorResponse.error.reason));
-  }
-
-  private handleRegisterResponse(response): RegisterResponse {
-    if (response instanceof RegisterResponse) {
+  private handleRegisterResponse(response: any): RegisterResponse {
+    if (response instanceof RegisterResponse) { // Received from handleRegisterError
       return response;
     }
     return new RegisterResponse(true, null);
