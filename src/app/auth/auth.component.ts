@@ -1,7 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { AuthService } from '../auth.service';
-import { catchError, map, tap } from 'rxjs/operators';
-import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'auth',
@@ -25,21 +23,12 @@ export class AuthComponent implements OnInit {
       this.email.nativeElement.value,
       this.password.nativeElement.value
     )
-    .pipe(catchError(this.handleError<Object>(null)))
-    .subscribe(response => {
-      if (response) {
-        console.log(response);
-        this.success = true;
-      }
-    });
-  }
-
-  private handleError<T>(result?: T) {
-    return (httpErrorResponse: any): Observable<T> => {
-      console.log(httpErrorResponse);
-      this.errorMessage = httpErrorResponse.error.reason;
-      // Let the app keep running by returning an empty result.
-      return of(result as T);
-    };
+      .subscribe(response => {
+        if (response.success) {
+          this.success = true
+        } else {
+          this.errorMessage = response.message;
+        }
+      });
   }
 }
