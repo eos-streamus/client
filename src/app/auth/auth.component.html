@@ -3,11 +3,11 @@
     <div class="col-5" id="form-wrapper">
       <div class="form-group">
         <label for="emailInput">Email address</label>
-        <input type="email" class="form-control" id="emailInput" placeholder="Enter email" #email>
+        <input type="email" (keyup.enter)="submit()" class="form-control" id="emailInput" placeholder="Enter email" #email>
       </div>
       <div class="form-group">
         <label for="passwordInput">Password</label>
-        <input type="password" class="form-control" id="passwordInput" placeholder="Password" #password>
+        <input type="password" (keyup.enter)="submit()" class="form-control" id="passwordInput" placeholder="Password" #password>
       </div>
       <button (click)="submit()" class="btn btn-primary btn-block btn-lg btn-danger">Submit</button>
     </div>
