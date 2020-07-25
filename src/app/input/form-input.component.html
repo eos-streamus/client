@@ -1,0 +1,9 @@
+<div class="form-group">
+  <label [for]="label">{{label}}</label>
+  <input [type]="type" class="form-control" [id]="label" placeholder="Enter {{label}}" #input>
+  <ul>
+    <li *ngFor="let error of errors" class="error">
+      {{ error }}
+    </li>
+  </ul>
+</div>

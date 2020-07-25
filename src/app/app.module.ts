@@ -9,6 +9,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AuthComponent } from './auth/auth.component';
 import { HttpClientModule } from '@angular/common/http';
 import { RegisterComponent } from './register/register.component';
+import { FormInputComponent } from './input/form-input.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { RegisterComponent } from './register/register.component';
     NavbarComponent,
     SearchBoxComponent,
     AuthComponent,
-    RegisterComponent
+    RegisterComponent,
+    FormInputComponent
   ],
   imports: [
     BrowserModule,

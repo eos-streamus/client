@@ -1,66 +1,12 @@
 <div class="container">
   <div class="row justify-content-center mt-5">
     <div class="col-5" id="form-wrapper">
-      <div class="form-group">
-        <label for="username">Username</label>
-        <input type="text" class="form-control" id="username" placeholder="Enter username" #username>
-        <ul>
-          <li *ngFor="let error of map['username']" id="usernameError" class="error">
-            {{ error }}
-          </li>
-        </ul>
-      </div>
-
-      <div class="form-group">
-        <label for="email">Email address</label>
-        <input type="email" class="form-control" id="email" placeholder="Enter email" #email>
-        <ul>
-          <li *ngFor="let error of map['email']" id="emailError" class="error">
-            {{ error }}
-          </li>
-        </ul>
-      </div>
-
-      <div class="form-group">
-        <label for="firstName">First name</label>
-        <input type="text" class="form-control" id="firstName" placeholder="Enter first name" #firstName>
-        <ul>
-          <li *ngFor="let error of map['firstName']" id="firstNameError" class="error">
-            {{ error }}
-          </li>
-        </ul>
-      </div>
-
-      <div class="form-group">
-        <label for="lastName">Last name</label>
-        <input type="text" class="form-control" id="lastName" placeholder="Enter last name" #lastName>
-        <ul>
-          <li *ngFor="let error of map['lastName']" id="lastNameError" class="error">
-            {{ error }}
-          </li>
-        </ul>
-      </div>
-
-      <div class="form-group">
-        <label for="dateOfBirth">Date of birth</label>
-        <input type="date" class="form-control" id="dateOfBirth" placeholder="Enter date of birth" #dateOfBirth>
-        <ul>
-          <li *ngFor="let error of map['dateOfBirth']" id="dateOfBirthError" class="error">
-            {{ error }}
-          </li>
-        </ul>
-      </div>
-
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" class="form-control" id="password" placeholder="Password" #password>
-        <ul>
-          <li *ngFor="let error of map['password']" id="passwordError" class="error">
-            {{ error }}
-          </li>
-        </ul>
-      </div>
-
+      <form-input [type]="'text'" [label]="'Username'" [errors]="map['username']" #username></form-input>
+      <form-input [type]="'email'" [label]="'Email address'" [errors]="map['email']" #email></form-input>
+      <form-input [type]="'text'" [label]="'First name'" [errors]="map['firstName']" #firstName></form-input>
+      <form-input [type]="'text'" [label]="'Last name'" [errors]="map['lastName']" #lastName></form-input>
+      <form-input [type]="'date'" [label]="'Date of birth'" [errors]="map['dateOfBirth']" #dateOfBirth></form-input>
+      <form-input [type]="'password'" [label]="'Password'" [errors]="map['password']" #password></form-input>
       <button (click)="submit()" class="btn btn-primary btn-block btn-lg btn-danger">Submit</button>
     </div>
   </div>

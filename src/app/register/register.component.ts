@@ -1,5 +1,6 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from '../auth.service';
+import { FormInputComponent } from '../input/form-input.component';
 
 @Component({
   selector: 'register',
@@ -7,12 +8,12 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-  @ViewChild('username') private username: ElementRef;
-  @ViewChild('email') private email: ElementRef;
-  @ViewChild('firstName') private firstName: ElementRef;
-  @ViewChild('lastName') private lastName: ElementRef;
-  @ViewChild('dateOfBirth') private dateOfBirth: ElementRef;
-  @ViewChild('password') private password: ElementRef;
+  @ViewChild('username') private username: FormInputComponent;
+  @ViewChild('email') private email: FormInputComponent;
+  @ViewChild('firstName') private firstName: FormInputComponent;
+  @ViewChild('lastName') private lastName: FormInputComponent;
+  @ViewChild('dateOfBirth') private dateOfBirth: FormInputComponent;
+  @ViewChild('password') private password: FormInputComponent;
 
   map: Object;
 
@@ -36,12 +37,12 @@ export class RegisterComponent implements OnInit {
 
   submit() {
     this.authService.performRegister({
-      username: this.username.nativeElement.value,
-      email: this.email.nativeElement.value,
-      firstName: this.firstName.nativeElement.value,
-      lastName: this.lastName.nativeElement.value,
-      dateOfBirth: this.dateOfBirth.nativeElement.value,
-      password: this.password.nativeElement.value
+      username: this.username.value,
+      email: this.email.value,
+      firstName: this.firstName.value,
+      lastName: this.lastName.value,
+      dateOfBirth: this.dateOfBirth.value,
+      password: this.password.value
     })
       .subscribe(response => {
         this.resetMap();

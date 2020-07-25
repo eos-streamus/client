@@ -1,27 +1,8 @@
-.btn, .form-control {
+.btn {
   border-radius: 0;
-}
-
-input.form-control {
-  background-color: #222;
-  border-color: #333;
-  color: #999;
-}
-
-input.form-control:focus {
-  border-color:#444;
-  box-shadow: 0 0 5px rgb(41, 41, 43);
 }
 
 #form-wrapper {
   background-color: #212121;
   padding: 1rem;
-}
-
-label {
-  color: white;
-}
-
-li.error {
-  color: red;
 }
