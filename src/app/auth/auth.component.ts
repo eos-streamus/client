@@ -25,18 +25,19 @@ export class AuthComponent implements OnInit {
       this.email.nativeElement.value,
       this.password.nativeElement.value
     )
-    .pipe(catchError(this.handleError<string>('')))
-    .subscribe(token => {
-      if (token) {
-        console.log(token);
+    .pipe(catchError(this.handleError<Object>(null)))
+    .subscribe(response => {
+      if (response) {
+        console.log(response);
         this.success = true;
       }
     });
   }
 
   private handleError<T>(result?: T) {
-    return (error: any): Observable<T> => {
-      this.errorMessage = error.error.reason;
+    return (httpErrorResponse: any): Observable<T> => {
+      console.log(httpErrorResponse);
+      this.errorMessage = httpErrorResponse.error.reason;
       // Let the app keep running by returning an empty result.
       return of(result as T);
     };
