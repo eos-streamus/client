@@ -8,13 +8,15 @@ import { SearchBoxComponent } from './search-box/search-box.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AuthComponent } from './auth/auth.component';
 import { HttpClientModule } from '@angular/common/http';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     SearchBoxComponent,
-    AuthComponent
+    AuthComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
