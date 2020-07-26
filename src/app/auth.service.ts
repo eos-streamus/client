@@ -44,6 +44,7 @@ export class AuthService {
     if (response instanceof LoginResponse) { // Received from handleLoginError
       return response;
     }
+    Constants.jwtToken = response.token;
     return new LoginResponse(true, null);
   }
 }
