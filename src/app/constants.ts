@@ -4,6 +4,4 @@ export class Constants {
   static getUrl(endpoint: string) {
     return `${this.SERVER_URL}/${endpoint}`;
   }
-
-  static jwtToken;
 }

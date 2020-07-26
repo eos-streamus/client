@@ -44,7 +44,8 @@ export class AuthService {
     if (response instanceof LoginResponse) { // Received from handleLoginError
       return response;
     }
-    Constants.jwtToken = response.token;
+    console.log("Updating jwtToken with " + response.token);
+    localStorage.setItem('streamusToken', response.token);
     return new LoginResponse(true, null);
   }
 }
