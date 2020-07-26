@@ -14,6 +14,7 @@ export class RegisterComponent implements OnInit {
   @ViewChild('lastName') private lastName: FormInputComponent;
   @ViewChild('dateOfBirth') private dateOfBirth: FormInputComponent;
   @ViewChild('password') private password: FormInputComponent;
+  @ViewChild('confirmPassword') private confirmPassword: FormInputComponent;
   @Input('authService') private authService: AuthService;
 
   map: Object;
@@ -32,27 +33,32 @@ export class RegisterComponent implements OnInit {
       'firstName': [],
       'lastName': [],
       'dateOfBirth': [],
-      'password': []
+      'password': [],
+      'confirmPassword': []
     };
   }
 
   submit() {
-    this.authService.performRegister({
-      username: this.username.value,
-      email: this.email.value,
-      firstName: this.firstName.value,
-      lastName: this.lastName.value,
-      dateOfBirth: this.dateOfBirth.value,
-      password: this.password.value
-    })
-      .subscribe(response => {
-        this.resetMap();
-        if (response.errors && response.errors.length > 0) {
-          response.errors.forEach(error => {
-            this.map[error.fieldName].push(error.error);
-          });
-        }
-      });
+    if (this.password.value !== this.confirmPassword.value) {
+      this.confirmPassword.errors = ['Passwords do not match'];
+    } else {
+      this.authService.performRegister({
+        username: this.username.value,
+        email: this.email.value,
+        firstName: this.firstName.value,
+        lastName: this.lastName.value,
+        dateOfBirth: this.dateOfBirth.value,
+        password: this.password.value
+      })
+        .subscribe(response => {
+          this.resetMap();
+          if (response.errors && response.errors.length > 0) {
+            response.errors.forEach(error => {
+              this.map[error.fieldName].push(error.error);
+            });
+          }
+        });
+    }
   }
 
 }
