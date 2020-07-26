@@ -1,13 +1,7 @@
-<div class="container">
-  <div class="row justify-content-center mt-5">
-    <div class="col-5" id="form-wrapper">
-      <form-input [type]="'text'" [label]="'Username'" [errors]="map['username']" #username></form-input>
-      <form-input [type]="'email'" [label]="'Email address'" [errors]="map['email']" #email></form-input>
-      <form-input [type]="'text'" [label]="'First name'" [errors]="map['firstName']" #firstName></form-input>
-      <form-input [type]="'text'" [label]="'Last name'" [errors]="map['lastName']" #lastName></form-input>
-      <form-input [type]="'date'" [label]="'Date of birth'" [errors]="map['dateOfBirth']" #dateOfBirth></form-input>
-      <form-input [type]="'password'" [label]="'Password'" [errors]="map['password']" #password></form-input>
-      <button (click)="submit()" class="btn btn-primary btn-block btn-lg btn-danger">Submit</button>
-    </div>
-  </div>
-</div>
+<form-input [type]="'text'" [label]="'Username'" [errors]="map['username']" #username></form-input>
+<form-input [type]="'email'" [label]="'Email address'" [errors]="map['email']" #email></form-input>
+<form-input [type]="'text'" [label]="'First name'" [errors]="map['firstName']" #firstName></form-input>
+<form-input [type]="'text'" [label]="'Last name'" [errors]="map['lastName']" #lastName></form-input>
+<form-input [type]="'date'" [label]="'Date of birth'" [errors]="map['dateOfBirth']" #dateOfBirth></form-input>
+<form-input [type]="'password'" [label]="'Password'" [errors]="map['password']" #password></form-input>
+<button (click)="submit()" class="btn btn-primary btn-block btn-lg btn-danger">Submit</button>

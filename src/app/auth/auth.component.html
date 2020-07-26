@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="row justify-content-center mt-5">
+    <div class="col-6" id="form-wrapper">
+      <div class="row">
+        <div class="col tab-header" (click)="login = true" [class.active]="login">
+          <div class="row"><span>Login</span></div>
+        </div>
+        <div class="col tab-header" (click)="login = false" [class.active]="!login">
+          <div class="row"><span>Register</span></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="tab-content left" [class.active]="login" [class.inactive]="!login">
+          <login></login>
+        </div>
+        <div class="tab-content right" [class.active]="!login" [class.inactive]="login">
+          <register></register>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
