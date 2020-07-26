@@ -56,6 +56,14 @@ export class RegisterComponent implements OnInit {
             response.errors.forEach(error => {
               this.map[error.fieldName].push(error.error);
             });
+          } else if (response.success) {
+            this.authService
+            .performLogin(this.email.value, this.password.value)
+            .subscribe(response => {
+              if (response.success) {
+                // Do something
+              }
+            })
           }
         });
     }
