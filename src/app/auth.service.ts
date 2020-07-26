@@ -6,9 +6,7 @@ import { catchError, map } from 'rxjs/operators';
 import { RegisterResponse } from './responses/RegisterResponse';
 import { LoginResponse } from './responses/LoginResponse';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class AuthService {
 
   constructor(private httpClient: HttpClient) { }
