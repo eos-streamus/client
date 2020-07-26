@@ -11,10 +11,10 @@
       </div>
       <div class="row">
         <div class="tab-content left" [class.active]="login" [class.inactive]="!login">
-          <login></login>
+          <login [authService]="authService"></login>
         </div>
         <div class="tab-content right" [class.active]="!login" [class.inactive]="login">
-          <register></register>
+          <register [authService]="authService"></register>
         </div>
       </div>
     </div>

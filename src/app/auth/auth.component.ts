@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'auth',
@@ -7,7 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AuthComponent implements OnInit {
   login: boolean = true;
-  constructor() { }
+  authService: AuthService;
+  constructor(authService: AuthService) {
+    this.authService = authService;
+  }
 
   ngOnInit(): void {
   }

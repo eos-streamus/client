@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -9,10 +9,11 @@ import { AuthService } from '../auth.service';
 export class LoginComponent implements OnInit {
   @ViewChild("email") private email: ElementRef;
   @ViewChild("password") private password: ElementRef;
+  @Input('authService') private authService: AuthService;
   errorMessage: string = null;
   success: boolean = null;
 
-  constructor(private authService: AuthService) { }
+  constructor() { }
 
   ngOnInit(): void {
   }

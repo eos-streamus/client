@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { FormInputComponent } from '../input/form-input.component';
 
@@ -14,10 +14,11 @@ export class RegisterComponent implements OnInit {
   @ViewChild('lastName') private lastName: FormInputComponent;
   @ViewChild('dateOfBirth') private dateOfBirth: FormInputComponent;
   @ViewChild('password') private password: FormInputComponent;
+  @Input('authService') private authService: AuthService;
 
   map: Object;
 
-  constructor(private authService: AuthService) {
+  constructor() {
     this.resetMap();
   }
 
