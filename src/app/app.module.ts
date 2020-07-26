@@ -11,6 +11,7 @@ import { RegisterComponent } from './register/register.component';
 import { FormInputComponent } from './input/form-input.component';
 import { LoginComponent } from './login/login.component';
 import { AuthComponent } from './auth/auth.component';
+import { CatalogComponent } from './catalog/catalog.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { AuthComponent } from './auth/auth.component';
     RegisterComponent,
     FormInputComponent,
     LoginComponent,
-    AuthComponent
+    AuthComponent,
+    CatalogComponent
   ],
   imports: [
     BrowserModule,
