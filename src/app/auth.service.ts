@@ -37,7 +37,7 @@ export class AuthService {
     if (response instanceof RegisterResponse) { // Received from handleRegisterError
       return response;
     }
-    return new RegisterResponse(true, null);
+    return new RegisterResponse(true, null, response);
   }
 
   private handleResponse(response: any): LoginResponse {
