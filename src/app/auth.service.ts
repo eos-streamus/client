@@ -5,21 +5,22 @@ import { Constants } from './constants';
 import { catchError, map } from 'rxjs/operators';
 import { RegisterResponse } from './responses/RegisterResponse';
 import { LoginResponse } from './responses/LoginResponse';
-import * as jwt_decode from 'jwt-decode';
+import { Tokens } from './tokens';
+import { JwtService } from './jwt.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient, private jwtService: JwtService) {
+  }
 
   performRefresh(): Observable<Tokens> {
-    return this.httpClient.post(Constants.getUrl('refresh'), Tokens.getTokens().serialized())
+    return this.httpClient.post(Constants.getUrl('refresh'), this.jwtService.getTokens().serialized())
       .pipe(catchError(response => of(response)))
       .pipe(map(response => {
         const tokens = new Tokens(response.refreshToken, response.sessionToken);
-        tokens.save();
         return tokens;
       }));
   }
@@ -43,7 +44,7 @@ export class AuthService {
       password: password
     })
       .pipe(catchError(response => of(new LoginResponse(false, response.error.reason))))
-      .pipe(map(this.handleResponse));
+      .pipe(map(res => this.handleResponse(res)));
   }
 
   private handleRegisterResponse(response: any): RegisterResponse {
@@ -57,76 +58,11 @@ export class AuthService {
     if (response instanceof LoginResponse) { // Received from handleLoginError
       return response;
     }
-    new Tokens(response.refreshToken, response.sessionToken).save();
+    this.jwtService.saveTokens(new Tokens(response.refreshToken, response.sessionToken));
     return new LoginResponse(true, null);
   }
-}
 
-export class Tokens {
-  private static REFRESH_ITEM_NAME: string = 'streamusRefreshToken';
-  private static SESSION_ITEM_NAME: string = 'streamusSessionToken';
-  private _encodedRefreshToken: string;
-  private _encodedSessionToken: string;
-
-  public constructor(encodedRefreshToken: string, encodedSessionToken: string) {
-    // Must be valid tokens. Throws an exception if it is not the case.
-    jwt_decode(encodedRefreshToken);
-    jwt_decode(encodedSessionToken);
-    this._encodedRefreshToken = encodedRefreshToken;
-    this._encodedSessionToken = encodedSessionToken;
+  public getTokens(): Tokens {
+    return this.jwtService.getTokens();
   }
-
-  public get encodedRefreshToken(): string {
-    return this._encodedRefreshToken;
-  }
-
-  public get encodedSessionToken(): string {
-    return this._encodedSessionToken;
-  }
-
-  public get refreshToken(): Token {
-    const decoded = jwt_decode(this.encodedRefreshToken);
-    return {
-      expiresAt: decoded.exp * 1000,
-      issuedAt: decoded.iat * 1000,
-      id: decoded.jti,
-      userId: decoded.userId
-    };
-  }
-
-  public get sessionToken(): Token {
-    const decoded = jwt_decode(this.encodedSessionToken);
-    return {
-      email: decoded.email,
-      expiresAt: decoded.exp * 1000,
-      issuedAt: decoded.iat * 1000,
-      id: decoded.jti,
-      userId: decoded.userId
-    };
-  }
-
-  public save(): void {
-    localStorage.setItem(Tokens.REFRESH_ITEM_NAME, this.encodedRefreshToken);
-    localStorage.setItem(Tokens.SESSION_ITEM_NAME, this.encodedSessionToken);
-  }
-
-  public serialized(): { refreshToken: string, sessionToken: string} {
-    return {
-      refreshToken: this.encodedRefreshToken,
-      sessionToken: this.encodedSessionToken
-    }
-  }
-
-  static getTokens(): Tokens {
-    const encodedRefreshToken = localStorage.getItem(Tokens.REFRESH_ITEM_NAME);
-    const encodedSessionToken = localStorage.getItem(Tokens.SESSION_ITEM_NAME);
-    if (encodedRefreshToken && encodedSessionToken) {
-      return new Tokens(encodedRefreshToken, encodedSessionToken);
-    }
-    return null;
-  }
-}
-
-export interface Token {
-  email?: string, expiresAt: number, issuedAt: number, id: string, userId: number
 }
