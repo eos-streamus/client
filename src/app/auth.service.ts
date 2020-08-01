@@ -44,8 +44,10 @@ export class AuthService {
     if (response instanceof LoginResponse) { // Received from handleLoginError
       return response;
     }
-    console.log("Updating jwtToken with " + response.token);
-    localStorage.setItem('streamusToken', response.token);
+    console.log("Updating jwtToken with " + response.sessionToken);
+    localStorage.setItem('streamusSessionToken', response.sessionToken);
+    console.log("Updating jwtToken refresh with " + response.refreshToken);
+    localStorage.setItem('streamusRefreshToken', response.refreshToken);
     return new LoginResponse(true, null);
   }
 }
