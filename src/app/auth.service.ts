@@ -5,11 +5,27 @@ import { Constants } from './constants';
 import { catchError, map } from 'rxjs/operators';
 import { RegisterResponse } from './responses/RegisterResponse';
 import { LoginResponse } from './responses/LoginResponse';
+import * as jwt_decode from 'jwt-decode';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class AuthService {
 
   constructor(private httpClient: HttpClient) { }
+
+  performRefresh(encodedSessionJwt: string, encodedRefreshJwt: string): Observable<any> {
+    return this.httpClient.post(Constants.getUrl('refresh'), {
+      refreshToken: encodedRefreshJwt,
+      sessionToken: encodedSessionJwt
+    })
+    .pipe(catchError(response => of(response)))
+    .pipe(map(response => {
+      localStorage.setItem('streamusSessionToken', response.sessionToken);
+      localStorage.setItem('streamusRefreshToken', response.refreshToken);
+      return of(response);
+    }));
+  }
 
   performRegister(data: {
     username: string,
@@ -44,9 +60,7 @@ export class AuthService {
     if (response instanceof LoginResponse) { // Received from handleLoginError
       return response;
     }
-    console.log("Updating jwtToken with " + response.sessionToken);
     localStorage.setItem('streamusSessionToken', response.sessionToken);
-    console.log("Updating jwtToken refresh with " + response.refreshToken);
     localStorage.setItem('streamusRefreshToken', response.refreshToken);
     return new LoginResponse(true, null);
   }
