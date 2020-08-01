@@ -12,6 +12,7 @@ import { FormInputComponent } from './input/form-input.component';
 import { LoginComponent } from './login/login.component';
 import { AuthComponent } from './auth/auth.component';
 import { CatalogComponent } from './catalog/catalog.component';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { CatalogComponent } from './catalog/catalog.component';
     BrowserModule,
     AppRoutingModule,
     FontAwesomeModule,
-    HttpClientModule
+    HttpClientModule,
+    CookieService
   ],
   providers: [],
   bootstrap: [AppComponent]
