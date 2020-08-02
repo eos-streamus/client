@@ -21,6 +21,7 @@ export class AuthService {
       .pipe(catchError(response => of(response)))
       .pipe(map(response => {
         const tokens = new Tokens(response.refreshToken, response.sessionToken);
+        this.jwtService.saveTokens(tokens);
         return tokens;
       }));
   }
