@@ -10,7 +10,7 @@
       <p class="card-text">
         Duration: {{film.durationString}}
       </p>
-      <button class="btn btn-block btn-lg btn-dark" (click)="watch(film)">Watch</button>
+      <button class="btn btn-block btn-lg btn-dark" [routerLink]="['/watchVideo', film.filmData.id]">Watch</button>
     </div>
     </div>
   </li>

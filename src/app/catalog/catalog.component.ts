@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Constants } from '../constants';
 import { JwtService } from '../jwt.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-catalog',
@@ -11,7 +12,7 @@ import { JwtService } from '../jwt.service';
 export class CatalogComponent implements OnInit {
   films: Film[] = [];
 
-  constructor(private httpClient: HttpClient, private jwtService: JwtService) { }
+  constructor(private httpClient: HttpClient, private jwtService: JwtService, private router: Router) { }
 
   ngOnInit(): void {
     this.httpClient.get<FilmData[]>(Constants.getUrl('films'), {
@@ -22,12 +23,6 @@ export class CatalogComponent implements OnInit {
       });
     })
   }
-
-  watch(film: Film) {
-    console.log("Watch");
-    console.log(film.filmData);
-  }
-
 }
 
 class Film {

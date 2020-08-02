@@ -13,6 +13,7 @@ import { LoginComponent } from './login/login.component';
 import { AuthComponent } from './auth/auth.component';
 import { CatalogComponent } from './catalog/catalog.component';
 import { CookieService } from 'ngx-cookie-service';
+import { VideoStreamComponent } from './video-stream/video-stream.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { CookieService } from 'ngx-cookie-service';
     FormInputComponent,
     LoginComponent,
     AuthComponent,
-    CatalogComponent
+    CatalogComponent,
+    VideoStreamComponent
   ],
   imports: [
     BrowserModule,
