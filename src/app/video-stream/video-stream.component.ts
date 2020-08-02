@@ -3,7 +3,6 @@ import { ActivatedRoute } from '@angular/router';
 import { Constants } from '../constants';
 import { JwtService } from '../jwt.service';
 
-
 @Component({
   selector: 'app-video-stream',
   templateUrl: './video-stream.component.html',
@@ -12,7 +11,7 @@ import { JwtService } from '../jwt.service';
 export class VideoStreamComponent implements OnInit {
   id: number;
 
-  constructor(private route: ActivatedRoute, private jwtService: JwtService) { }
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.route.params.forEach(param => {
@@ -23,7 +22,7 @@ export class VideoStreamComponent implements OnInit {
   }
 
   public getUrl(): string {
-    return Constants.getUrl(`film/${this.id}/stream?token=${this.jwtService.getTokens().encodedSessionToken}`);
+    return Constants.getUrl(`film/${this.id}/stream`);
   }
 
 }
