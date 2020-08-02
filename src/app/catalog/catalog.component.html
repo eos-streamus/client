@@ -1,1 +1,17 @@
 <p>catalog works!</p>
+
+<ul>
+  <li *ngFor="let film of films">
+    <div class="card" style="width: 18rem;">
+      <div class="card-body">
+      <h5 class="card-title">
+        {{film.filmData.name}}
+      </h5>
+      <p class="card-text">
+        Duration: {{film.durationString}}
+      </p>
+      <button class="btn btn-block btn-lg btn-dark" (click)="watch(film)">Watch</button>
+    </div>
+    </div>
+  </li>
+</ul>
