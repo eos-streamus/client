@@ -11,12 +11,12 @@ export class JwtService {
   constructor(private cookieService: CookieService) { }
 
   public saveTokens(tokens: Tokens) : void {
-    this.cookieService.set(JwtService.REFRESH_ITEM_NAME, tokens.encodedRefreshToken);
+    localStorage.setItem(JwtService.REFRESH_ITEM_NAME, tokens.encodedRefreshToken);
     this.cookieService.set(JwtService.SESSION_ITEM_NAME, tokens.encodedSessionToken);
   }
 
   public getTokens(): Tokens {
-    const encodedRefreshToken = this.cookieService.get(JwtService.REFRESH_ITEM_NAME);
+    const encodedRefreshToken = localStorage.getItem(JwtService.REFRESH_ITEM_NAME);
     const encodedSessionToken = this.cookieService.get(JwtService.SESSION_ITEM_NAME);
     if (encodedRefreshToken && encodedSessionToken) {
       return new Tokens(encodedRefreshToken, encodedSessionToken);
