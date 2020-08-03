@@ -13,7 +13,7 @@ export class JwtService {
   public saveTokens(tokens: Tokens) : void {
     localStorage.setItem(JwtService.REFRESH_ITEM_NAME, tokens.encodedRefreshToken);
     this.cookieService.delete(JwtService.SESSION_ITEM_NAME, '/');
-    this.cookieService.set(JwtService.SESSION_ITEM_NAME, tokens.encodedSessionToken, new Date(tokens.sessionToken.expiresAt), '/');
+    this.cookieService.set(JwtService.SESSION_ITEM_NAME, tokens.encodedSessionToken, null, '/');
   }
 
   public getTokens(): Tokens {
