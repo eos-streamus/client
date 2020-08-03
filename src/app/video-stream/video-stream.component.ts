@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Constants } from '../constants';
-import { JwtService } from '../jwt.service';
 
 @Component({
   selector: 'app-video-stream',
