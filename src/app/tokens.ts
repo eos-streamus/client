@@ -41,10 +41,6 @@ export class Tokens {
     };
   }
 
-  public save(): void {
-
-  }
-
   public serialized(): { refreshToken: string, sessionToken: string } {
     return {
       refreshToken: this.encodedRefreshToken,
