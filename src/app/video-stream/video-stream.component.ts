@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Constants } from '../constants';
-import { JwtService } from '../jwt.service';
 import { AuthService } from '../auth.service';
 
 @Component({
