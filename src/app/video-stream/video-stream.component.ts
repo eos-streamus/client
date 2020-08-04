@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Constants } from '../constants';
+import { JwtService } from '../jwt.service';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-video-stream',
@@ -10,7 +12,7 @@ import { Constants } from '../constants';
 export class VideoStreamComponent implements OnInit {
   id: number;
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.route.params.forEach(param => {
@@ -18,6 +20,15 @@ export class VideoStreamComponent implements OnInit {
         this.id = param.id;
       }
     });
+    this.autoRefreshTokenWhenExpired();
+  }
+
+  private autoRefreshTokenWhenExpired(): void {
+    setTimeout(() => {
+      this.authService.performRefresh().toPromise().then(_ => {
+        this.autoRefreshTokenWhenExpired();
+      });
+    }, this.authService.getTokens().sessionToken.expiresAt - Date.now());
   }
 
   public getUrl(): string {
