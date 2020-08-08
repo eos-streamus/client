@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { Component, ViewChild, Input } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { FormInputComponent } from '../input/form-input.component';
 import { Router } from '@angular/router';
