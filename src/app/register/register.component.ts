@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { FormInputComponent } from '../input/form-input.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'register',
@@ -19,7 +20,7 @@ export class RegisterComponent implements OnInit {
 
   map: Object;
 
-  constructor() {
+  constructor(private router: Router) {
     this.resetMap();
   }
 
@@ -61,7 +62,7 @@ export class RegisterComponent implements OnInit {
             .performLogin(this.email.value, this.password.value)
             .subscribe(response => {
               if (response.success) {
-                // Do something
+                this.router.navigateByUrl('/');
               }
             })
           }
