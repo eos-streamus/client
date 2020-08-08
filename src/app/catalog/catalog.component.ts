@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Constants } from '../constants';
 import { JwtService } from '../jwt.service';
 import { Router } from '@angular/router';
+import { IconDefinition, faPlay } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-catalog',
@@ -10,6 +11,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./catalog.component.scss']
 })
 export class CatalogComponent implements OnInit {
+  faPlay: IconDefinition = faPlay;
   films: Film[] = [];
 
   constructor(private httpClient: HttpClient, private jwtService: JwtService, private router: Router) { }
