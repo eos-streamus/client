@@ -5,8 +5,8 @@ import { Tokens } from './tokens';
   providedIn: 'root'
 })
 export class JwtService {
-  private static REFRESH_ITEM_NAME: string = 'streamusRefreshToken';
-  private static SESSION_ITEM_NAME: string = 'streamusSessionToken';
+  public static REFRESH_ITEM_NAME: string = 'streamusRefreshToken';
+  public static SESSION_ITEM_NAME: string = 'streamusSessionToken';
 
   constructor(private cookieService: CookieService) { }
 
