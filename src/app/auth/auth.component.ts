@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'auth',
@@ -7,14 +8,11 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./auth.component.scss'],
   providers: [AuthService]
 })
-export class AuthComponent implements OnInit {
+export class AuthComponent {
   login: boolean = true;
   authService: AuthService;
+
   constructor(authService: AuthService) {
     this.authService = authService;
   }
-
-  ngOnInit(): void {
-  }
-
 }
