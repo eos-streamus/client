@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
   @ViewChild('email') private email: ElementRef;
   @ViewChild('password') private password: ElementRef;
   @Input('authService') private authService: AuthService;
@@ -15,9 +15,6 @@ export class LoginComponent implements OnInit {
   success: boolean = null;
 
   constructor(private router: Router) { }
-
-  ngOnInit(): void {
-  }
 
   submit() {
     this.errorMessage = null;
