@@ -7,8 +7,8 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  @ViewChild("email") private email: ElementRef;
-  @ViewChild("password") private password: ElementRef;
+  @ViewChild('email') private email: ElementRef;
+  @ViewChild('password') private password: ElementRef;
   @Input('authService') private authService: AuthService;
   errorMessage: string = null;
   success: boolean = null;

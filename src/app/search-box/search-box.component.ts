@@ -10,7 +10,7 @@ export class SearchBoxComponent implements OnInit {
   faSearch = faSearch;
   expanded: boolean;
 
-  @ViewChild("input") input: ElementRef;
+  @ViewChild('input') input: ElementRef;
 
   constructor() { }
 

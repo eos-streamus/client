@@ -34,7 +34,7 @@ class Film {
     const hours = Math.floor(this.filmData.duration / 3600);
     const minutes = Math.floor((this.filmData.duration - hours * 3600) / 60);
     const seconds = this.filmData.duration - hours * 3600 - minutes * 60
-    let result = "";
+    let result = '';
     if (hours > 0) {
       result += `${hours}h`;
     }
