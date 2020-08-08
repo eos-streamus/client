@@ -11,7 +11,7 @@ import { RegisterComponent } from './register/register.component';
 import { FormInputComponent } from './input/form-input.component';
 import { LoginComponent } from './login/login.component';
 import { AuthComponent } from './auth/auth.component';
-import { CatalogComponent } from './catalog/catalog.component';
+import { FilmCatalogComponent } from './film-catalog/film-catalog.component';
 import { CookieService } from 'ngx-cookie-service';
 import { VideoStreamComponent } from './video-stream/video-stream.component';
 
@@ -25,7 +25,7 @@ import { VideoStreamComponent } from './video-stream/video-stream.component';
     FormInputComponent,
     LoginComponent,
     AuthComponent,
-    CatalogComponent,
+    FilmCatalogComponent,
     VideoStreamComponent
   ],
   imports: [

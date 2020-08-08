@@ -6,11 +6,11 @@ import { Router } from '@angular/router';
 import { IconDefinition, faPlay } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: 'app-catalog',
-  templateUrl: './catalog.component.html',
-  styleUrls: ['./catalog.component.scss']
+  selector: 'film-catalog',
+  templateUrl: './film-catalog.component.html',
+  styleUrls: ['./film-catalog.component.scss']
 })
-export class CatalogComponent implements OnInit {
+export class FilmCatalogComponent implements OnInit {
   faPlay: IconDefinition = faPlay;
   films: Film[] = [];
 
