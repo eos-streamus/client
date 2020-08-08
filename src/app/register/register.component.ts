@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent {
   @ViewChild('username') private username: FormInputComponent;
   @ViewChild('email') private email: FormInputComponent;
   @ViewChild('firstName') private firstName: FormInputComponent;
@@ -22,9 +22,6 @@ export class RegisterComponent implements OnInit {
 
   constructor(private router: Router) {
     this.resetMap();
-  }
-
-  ngOnInit(): void {
   }
 
   private resetMap() {
