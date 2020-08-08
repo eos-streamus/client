@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Constants } from '../constants';
-import { JwtService } from '../jwt.service';
-import { Router } from '@angular/router';
 import { IconDefinition, faPlay } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -14,12 +12,10 @@ export class FilmCatalogComponent implements OnInit {
   faPlay: IconDefinition = faPlay;
   films: Film[] = [];
 
-  constructor(private httpClient: HttpClient, private jwtService: JwtService, private router: Router) { }
+  constructor(private httpClient: HttpClient) { }
 
   ngOnInit(): void {
-    this.httpClient.get<FilmData[]>(Constants.getUrl('films'), {
-      headers: new HttpHeaders({ "Authorization": `Bearer ${this.jwtService.getTokens().encodedSessionToken}` })
-    }).subscribe(result => {
+    this.httpClient.get<FilmData[]>(Constants.getUrl('films')).subscribe(result => {
       result.forEach(filmData => {
         this.films.push(new Film(filmData));
       });
