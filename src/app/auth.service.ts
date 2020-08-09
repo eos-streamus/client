@@ -44,7 +44,12 @@ export class AuthService {
       email: email,
       password: password
     })
-      .pipe(catchError(response => of(new LoginResponse(false, response.error.reason))))
+      .pipe(catchError(response => {
+        if (response.status == 0) {
+          return of(new LoginResponse(false, "Could not establish connection, please try again later"));
+        }
+        return of(new LoginResponse(false, response.error.reason))
+      }))
       .pipe(map(res => this.handleResponse(res)));
   }
 
