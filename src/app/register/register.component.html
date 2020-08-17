@@ -1,3 +1,6 @@
+<div *ngIf="otherError" class="alert alert-danger">
+  {{otherError}}
+</div>
 <form-input [type]="'text'" [label]="'Username'" [errors]="map['username']" #username></form-input>
 <form-input [type]="'email'" [label]="'Email address'" [errors]="map['email']" #email></form-input>
 <form-input [type]="'text'" [label]="'First name'" [errors]="map['firstName']" #firstName></form-input>
