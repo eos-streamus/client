@@ -22,9 +22,8 @@ export class AuthService {
       .pipe(map(response => {
         const tokens = new Tokens(response.refreshToken, response.sessionToken);
         this.jwtService.saveTokens(tokens);
-        console.log(`performing refresh in ${tokens.sessionToken.expiresAt - Date.now()}`);
         setTimeout(() => {
-          this.performRefresh();
+          this.performRefresh().toPromise();
         }, tokens.sessionToken.expiresAt - Date.now());
         return tokens;
       }));
@@ -75,7 +74,6 @@ export class AuthService {
     }
     const tokens = new Tokens(response.refreshToken, response.sessionToken);
     this.jwtService.saveTokens(tokens);
-    console.log(`performing refresh in ${tokens.sessionToken.expiresAt - Date.now()}`);
     setTimeout(() => {
       this.performRefresh();
     }, tokens.sessionToken.expiresAt - Date.now());
