@@ -16,7 +16,7 @@ export class AuthGuard implements CanActivate {
     if (!tokens || tokens.refreshToken.expiresAt < Date.now()) {
       return this.router.parseUrl('auth');
     } else if (tokens && tokens.sessionToken.expiresAt < Date.now()) {
-      this.authService.performRefresh().toPromise().then(_ => {
+      return this.authService.performRefresh().toPromise().then(_ => {
         return true;
       })
     }
