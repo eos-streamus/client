@@ -1,6 +1,7 @@
 <nav class="navbar navbar-dark">
   <a class="navbar-brand col-2" href="/">StreamUs</a>
   <div *ngIf="isLoggedIn()" class="row">
+    <a class="btn btn-danger" *ngIf="isAdmin()">Admin tools</a>
     <div class="mr-4 my-2 my-lg-0">
       <app-search-box></app-search-box>
     </div>

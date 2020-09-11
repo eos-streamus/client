@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { LogoutService } from '../logout.service';
-import { AuthService } from '../auth.service';
 import { faSignOutAlt, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
 import { JwtService } from '../jwt.service';
@@ -20,6 +19,10 @@ export class NavbarComponent {
       return true;
     }
     return false;
+  }
+
+  isAdmin(): boolean {
+    return this.isLoggedIn() && this.jwtService.getTokens().sessionToken.isAdmin;
   }
 
   logout() {
