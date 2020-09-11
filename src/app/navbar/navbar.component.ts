@@ -16,7 +16,10 @@ export class NavbarComponent {
   constructor(public jwtService: JwtService, private logoutService: LogoutService, private router: Router) { }
 
   isLoggedIn(): boolean {
-    return this.jwtService.getTokens() && this.jwtService.getTokens().sessionToken.expiresAt > Date.now();
+    if (this.jwtService.getTokens() && this.jwtService.getTokens().sessionToken.expiresAt > Date.now()) {
+      return true;
+    }
+    return false;
   }
 
   logout() {

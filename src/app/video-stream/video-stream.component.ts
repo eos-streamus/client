@@ -19,15 +19,6 @@ export class VideoStreamComponent implements OnInit {
         this.id = param.id;
       }
     });
-    this.autoRefreshTokenWhenExpired();
-  }
-
-  private autoRefreshTokenWhenExpired(): void {
-    setTimeout(() => {
-      this.authService.performRefresh().toPromise().then(_ => {
-        this.autoRefreshTokenWhenExpired();
-      });
-    }, this.authService.getTokens().sessionToken.expiresAt - Date.now());
   }
 
   public getUrl(): string {
