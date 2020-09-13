@@ -11,7 +11,7 @@ const routes: Routes = [
   { path: '', component: FilmCatalogComponent, canActivate: [AuthGuard] },
   { path: 'auth', component: AuthComponent },
   { path: 'watchVideo/:id', component: VideoStreamComponent, canActivate: [AuthGuard] },
-  { path: 'admin', component: AdminDashboardComponent, canActivate: [AdminGuard]}
+  { path: 'admin', component: AdminDashboardComponent, canActivate: [AuthGuard, AdminGuard]}
 ];
 
 @NgModule({
