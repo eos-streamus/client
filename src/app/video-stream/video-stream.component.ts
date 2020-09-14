@@ -35,8 +35,8 @@ export class VideoStreamComponent implements OnInit, AfterViewInit {
 
   timeUpdated(): void {
     const newOffset = Math.floor(this.player.nativeElement.currentTime);
-    if (newOffset === this.activity.pausedAt + 1) {
-      this.activity.pausedAt++;
+    if (newOffset !== this.activity.pausedAt) {
+      this.activity.pausedAt = newOffset;
       this.resourceActivityService.notifyUpdatedPausedAt(this.activity);
     }
   }
