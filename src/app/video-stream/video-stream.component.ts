@@ -9,40 +9,40 @@ import { ResourceActivityService, ResourceActivity } from '../resource-activity.
   styleUrls: ['./video-stream.component.scss']
 })
 export class VideoStreamComponent implements OnInit, AfterViewInit {
-  id: number;
+  videoId: number;
   @ViewChild('player') player: ElementRef;
   ready: boolean = false;
-
   activity: ResourceActivity;
+
 
   constructor(private route: ActivatedRoute, private resourceActivityService: ResourceActivityService) { }
 
   ngOnInit(): void {
     this.route.params.forEach(param => {
       if (param.id) {
-        this.id = param.id;
+        this.videoId = param.id;
       }
     });
   }
 
   ngAfterViewInit(): void {
-    this.resourceActivityService.getOrStartActivityForResource(this.id).then(activity => {
+    this.resourceActivityService.getOrStartActivityForResource(this.videoId).then(activity => {
       this.activity = activity;
       this.ready = true;
       this.player.nativeElement.currentTime = this.activity.pausedAt;
-      const self = this;
-      this.player.nativeElement.ontimeupdate = () => {
-        const newOffset = Math.floor(self.player.nativeElement.currentTime);
-        if (newOffset === self.activity.pausedAt + 1) {
-          self.activity.pausedAt++;
-          self.resourceActivityService.notifyUpdatedPausedAt(self.activity);
-        }
-      };
     });
   }
 
+  timeUpdated(): void {
+    const newOffset = Math.floor(this.player.nativeElement.currentTime);
+    if (newOffset === this.activity.pausedAt + 1) {
+      this.activity.pausedAt++;
+      this.resourceActivityService.notifyUpdatedPausedAt(this.activity);
+    }
+  }
+
   public getUrl(): string {
-    return Constants.getUrl(`film/${this.id}/stream`);
+    return Constants.getUrl(`film/${this.videoId}/stream`);
   }
 
 }
