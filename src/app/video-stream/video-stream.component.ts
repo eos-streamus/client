@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Constants } from '../constants';
 import { AuthService } from '../auth.service';
@@ -8,8 +8,10 @@ import { AuthService } from '../auth.service';
   templateUrl: './video-stream.component.html',
   styleUrls: ['./video-stream.component.scss']
 })
-export class VideoStreamComponent implements OnInit {
+export class VideoStreamComponent implements OnInit, AfterViewInit {
   id: number;
+  @ViewChild('player') player: ElementRef;
+  ready: boolean = false;
 
   constructor(private route: ActivatedRoute, private authService: AuthService) { }
 
@@ -19,6 +21,28 @@ export class VideoStreamComponent implements OnInit {
         this.id = param.id;
       }
     });
+  }
+
+  ngAfterViewInit(): void {
+    ///activity/{resourceId}
+    if (this.player) {
+      this.player.nativeElement.onplay = this.onPlay;
+      this.player.nativeElement.onpause = this.onPause;
+      this.player.nativeElement.ontimeupdate = this.onTimeUpdate;
+    }
+  }
+
+  private onTimeUpdate(event) {
+    console.log("Time updated");
+    console.log(event);
+  }
+
+  private onPlay() {
+    console.log("Play");
+  }
+
+  private onPause() {
+    console.log("Pause");
   }
 
   public getUrl(): string {
