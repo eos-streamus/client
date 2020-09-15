@@ -1,4 +1,4 @@
-  <div class="row full-width">
+  <div class="row full-width" *ngIf="playlist">
     <div class="col-4">
       <ul class="list-group">
         <li class="list-group-item" *ngFor="let track of playlist.tracks">
@@ -7,6 +7,6 @@
       </ul>
     </div>
     <div class="col">
-
+      <app-stream-audio [audioId]="currentTrack.id"></app-stream-audio>
     </div>
   </div>

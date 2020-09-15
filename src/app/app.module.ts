@@ -18,6 +18,7 @@ import { AuthInterceptor } from './auth-interceptor';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { PlaylistCatalogComponent } from './playlist-catalog/playlist-catalog.component';
 import { StreamSongCollectionComponent } from './stream-song-collection/stream-song-collection.component';
+import { StreamAudioComponent } from './stream-audio/stream-audio.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { StreamSongCollectionComponent } from './stream-song-collection/stream-s
     VideoStreamComponent,
     AdminDashboardComponent,
     PlaylistCatalogComponent,
-    StreamSongCollectionComponent
+    StreamSongCollectionComponent,
+    StreamAudioComponent
   ],
   imports: [
     BrowserModule,
