@@ -16,6 +16,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { VideoStreamComponent } from './video-stream/video-stream.component';
 import { AuthInterceptor } from './auth-interceptor';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+import { PlaylistCatalogComponent } from './playlist-catalog/playlist-catalog.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.compo
     AuthComponent,
     FilmCatalogComponent,
     VideoStreamComponent,
-    AdminDashboardComponent
+    AdminDashboardComponent,
+    PlaylistCatalogComponent
   ],
   imports: [
     BrowserModule,
