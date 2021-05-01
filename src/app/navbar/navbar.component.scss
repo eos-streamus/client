@@ -1,3 +1,19 @@
 .navbar {
   background-color: #212121;
+
+  div.row>* {
+    display: grid;
+    align-items: center;
+  }
+}
+
+.navbar-brand, .navbar__logout {
+  color: white;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.navbar-brand:hover, .navbar__logout:hover {
+  color: red;
+  transition: 0.2s;
 }

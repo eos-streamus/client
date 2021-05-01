@@ -1,3 +1,6 @@
-<video id="player" controls disablePictureInPicture controlslist="nodownload">
-  <source [src]="getUrl()" type="video/mp4" />
+<video #player id="player" controls disablePictureInPicture controlslist="nodownload" (timeupdate)="timeUpdated()">
+  <source [src]="getUrl()" type="video/mp4" *ngIf="ready"/>
 </video>
+<div *ngIf="!ready">
+  Loading...
+</div>

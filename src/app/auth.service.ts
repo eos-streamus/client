@@ -22,6 +22,9 @@ export class AuthService {
       .pipe(map(response => {
         const tokens = new Tokens(response.refreshToken, response.sessionToken);
         this.jwtService.saveTokens(tokens);
+        setTimeout(() => {
+          this.performRefresh().toPromise();
+        }, tokens.sessionToken.expiresAt - Date.now());
         return tokens;
       }));
   }
@@ -35,7 +38,12 @@ export class AuthService {
     password: string
   }): Observable<RegisterResponse> {
     return this.httpClient.post<RegisterResponse>(Constants.getUrl('users'), data)
-      .pipe(catchError(response => of(new RegisterResponse(false, response.error))))
+      .pipe(catchError(response => {
+        if (response.status == 0) {
+          return of(new RegisterResponse(false, [{ fieldName: "other", error: "There was an error, please try again later." }]));
+        }
+        return of(new RegisterResponse(false, response.error));
+      }))
       .pipe(map(this.handleRegisterResponse));
   }
 
@@ -44,7 +52,12 @@ export class AuthService {
       email: email,
       password: password
     })
-      .pipe(catchError(response => of(new LoginResponse(false, response.error.reason))))
+      .pipe(catchError(response => {
+        if (response.status == 0) {
+          return of(new LoginResponse(false, "Could not establish connection, please try again later"));
+        }
+        return of(new LoginResponse(false, response.error.reason))
+      }))
       .pipe(map(res => this.handleResponse(res)));
   }
 
@@ -59,7 +72,11 @@ export class AuthService {
     if (response instanceof LoginResponse) { // Received from handleLoginError
       return response;
     }
-    this.jwtService.saveTokens(new Tokens(response.refreshToken, response.sessionToken));
+    const tokens = new Tokens(response.refreshToken, response.sessionToken);
+    this.jwtService.saveTokens(tokens);
+    setTimeout(() => {
+      this.performRefresh();
+    }, tokens.sessionToken.expiresAt - Date.now());
     return new LoginResponse(true, null);
   }
 

@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import { LogoutService } from '../logout.service';
+import { faSignOutAlt, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { Router } from '@angular/router';
+import { JwtService } from '../jwt.service';
 
 @Component({
   selector: 'navbar',
@@ -6,7 +10,24 @@ import { Component } from '@angular/core';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent {
+  faSignOutAlt: IconDefinition = faSignOutAlt;
 
-  constructor() { }
+  constructor(public jwtService: JwtService, private logoutService: LogoutService, private router: Router) { }
 
+  isLoggedIn(): boolean {
+    if (this.jwtService.getTokens() && this.jwtService.getTokens().sessionToken.expiresAt > Date.now()) {
+      return true;
+    }
+    return false;
+  }
+
+  isAdmin(): boolean {
+    return this.isLoggedIn() && this.jwtService.getTokens().sessionToken.isAdmin;
+  }
+
+  logout() {
+    this.logoutService.logout().then(_ => {
+      this.router.navigateByUrl('/auth');
+    });
+  }
 }

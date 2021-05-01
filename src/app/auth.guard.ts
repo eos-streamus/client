@@ -15,14 +15,15 @@ export class AuthGuard implements CanActivate {
     const tokens = this.authService.getTokens();
     if (!tokens || tokens.refreshToken.expiresAt < Date.now()) {
       return this.router.parseUrl('auth');
-    }
-    if (tokens.sessionToken.expiresAt < Date.now()) {
+    } else if (tokens && tokens.sessionToken.expiresAt < Date.now()) {
       return this.authService.performRefresh().toPromise().then(_ => {
         return true;
+      }).catch(error => {
+        console.error(error);
+        return this.router.parseUrl('auth');
       });
-    } else {
-      return true;
     }
+    return true;
   }
 
 }

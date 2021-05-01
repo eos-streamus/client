@@ -15,6 +15,10 @@ import { FilmCatalogComponent } from './film-catalog/film-catalog.component';
 import { CookieService } from 'ngx-cookie-service';
 import { VideoStreamComponent } from './video-stream/video-stream.component';
 import { AuthInterceptor } from './auth-interceptor';
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+import { PlaylistCatalogComponent } from './playlist-catalog/playlist-catalog.component';
+import { StreamSongCollectionComponent } from './stream-song-collection/stream-song-collection.component';
+import { StreamAudioComponent } from './stream-audio/stream-audio.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +31,11 @@ import { AuthInterceptor } from './auth-interceptor';
     LoginComponent,
     AuthComponent,
     FilmCatalogComponent,
-    VideoStreamComponent
+    VideoStreamComponent,
+    AdminDashboardComponent,
+    PlaylistCatalogComponent,
+    StreamSongCollectionComponent,
+    StreamAudioComponent
   ],
   imports: [
     BrowserModule,

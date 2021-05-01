@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+  styleUrls: ['./register.component.scss', '../login/login.component.scss']
 })
 export class RegisterComponent {
   @ViewChild('username') private username: FormInputComponent;
@@ -19,6 +19,7 @@ export class RegisterComponent {
   @Input('authService') private authService: AuthService;
 
   map: Object;
+  otherError: string;
 
   constructor(private router: Router) {
     this.resetMap();
@@ -34,6 +35,7 @@ export class RegisterComponent {
       'password': [],
       'confirmPassword': []
     };
+    this.otherError = null;
   }
 
   submit() {
@@ -52,7 +54,11 @@ export class RegisterComponent {
           this.resetMap();
           if (response.errors && response.errors.length > 0) {
             response.errors.forEach(error => {
-              this.map[error.fieldName].push(error.error);
+              if (error.fieldName !== 'other') {
+                this.map[error.fieldName].push(error.error);
+              } else {
+                this.otherError = error.error;
+              }
             });
           } else if (response.success) {
             this.authService

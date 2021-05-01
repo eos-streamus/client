@@ -26,7 +26,8 @@ export class Tokens {
       expiresAt: decoded.exp * 1000,
       issuedAt: decoded.iat * 1000,
       id: decoded.jti,
-      userId: decoded.userId
+      userId: decoded.userId,
+      isAdmin: decoded.isAdmin
     };
   }
 
@@ -37,7 +38,8 @@ export class Tokens {
       expiresAt: decoded.exp * 1000,
       issuedAt: decoded.iat * 1000,
       id: decoded.jti,
-      userId: decoded.userId
+      userId: decoded.userId,
+      isAdmin: decoded.isAdmin
     };
   }
 
@@ -50,5 +52,5 @@ export class Tokens {
 }
 
 export interface Token {
-  email?: string, expiresAt: number, issuedAt: number, id: string, userId: number
+  email?: string, expiresAt: number, issuedAt: number, id: string, userId: number, isAdmin?: boolean
 }

@@ -1,4 +1,10 @@
 <nav class="navbar navbar-dark">
-  <a class="navbar-brand" href="/">StreamUs</a>
-  <app-search-box></app-search-box>
+  <a class="navbar-brand col-2" href="/">StreamUs</a>
+  <div *ngIf="isLoggedIn()" class="row">
+    <div class="mr-4 navbar__search-box-container">
+      <app-search-box></app-search-box>
+    </div>
+    <a class="btn btn-danger mr-4 navbar__admin-tools-link" *ngIf="isAdmin()" routerLink="admin">Admin tools</a>
+    <fa-icon [icon]='faSignOutAlt' class="mr-4 navbar__logout" (click)="logout()"></fa-icon>
+  </div>
 </nav>

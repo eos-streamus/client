@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="row">
+    <div *ngFor="let playlist of playlists" class="col">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="card-title">
+            {{playlist.name}}
+          </h5>
+        </div>
+        <div class="card-body">
+          <p class="card-text">
+            {{playlist.tracks.length}} Tracks
+          </p>
+          <button class="btn btn-block btn-lg btn-dark" [routerLink]="['/streamSongCollection', playlist.id]">
+            <fa-icon [icon]='faPlay'></fa-icon>
+            <span class="play">Play</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

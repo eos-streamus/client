@@ -1,37 +1,48 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Constants } from '../constants';
-import { AuthService } from '../auth.service';
+import { ResourceActivityService, ResourceActivity } from '../resource-activity.service';
 
 @Component({
   selector: 'app-video-stream',
   templateUrl: './video-stream.component.html',
   styleUrls: ['./video-stream.component.scss']
 })
-export class VideoStreamComponent implements OnInit {
-  id: number;
+export class VideoStreamComponent implements OnInit, AfterViewInit {
+  videoId: number;
+  @ViewChild('player') player: ElementRef;
+  ready: boolean = false;
+  activity: ResourceActivity;
 
-  constructor(private route: ActivatedRoute, private authService: AuthService) { }
+
+  constructor(private route: ActivatedRoute, private resourceActivityService: ResourceActivityService) { }
 
   ngOnInit(): void {
     this.route.params.forEach(param => {
       if (param.id) {
-        this.id = param.id;
+        this.videoId = param.id;
       }
     });
-    this.autoRefreshTokenWhenExpired();
   }
 
-  private autoRefreshTokenWhenExpired(): void {
-    setTimeout(() => {
-      this.authService.performRefresh().toPromise().then(_ => {
-        this.autoRefreshTokenWhenExpired();
-      });
-    }, this.authService.getTokens().sessionToken.expiresAt - Date.now());
+  ngAfterViewInit(): void {
+    this.resourceActivityService.getOrStartActivityForResource(this.videoId).then(activity => {
+      this.activity = activity;
+      this.ready = true;
+      this.player.nativeElement.currentTime = this.activity.pausedAt;
+    });
+  }
+
+  timeUpdated(): void {
+    const newOffset = Math.floor(this.player.nativeElement.currentTime);
+    if (newOffset !== this.activity.pausedAt) {
+      this.activity.pausedAt = newOffset;
+      this.resourceActivityService.notifyUpdatedPausedAt(this.activity);
+    }
   }
 
   public getUrl(): string {
-    return Constants.getUrl(`film/${this.id}/stream`);
+    return Constants.getUrl(`film/${this.videoId}/stream`);
   }
 
 }
